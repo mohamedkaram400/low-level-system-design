@@ -37,6 +37,7 @@ class ParkingLot
     public function park_vehicle(Vehicle $vehicle): bool
     {
         foreach ($this->levels as $level) {
+            var_dump($vehicle, $level->park_vehicle($vehicle));
             if ($level->park_vehicle($vehicle)) {
                 return True;
             }

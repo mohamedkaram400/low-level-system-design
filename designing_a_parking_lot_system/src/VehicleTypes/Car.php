@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\VehicleTypes;
 
 use App\Vehicle;
 use App\Enums\VehicleType;
@@ -11,7 +11,6 @@ class Car extends Vehicle
 
     public function __construct(string $license_plate)
     {
-        $this->license_plate = $license_plate;
-        $this->type = VehicleType::Car;
+        parent::__construct($license_plate, VehicleType::Car);
     }
 }
