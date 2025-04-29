@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use ParkingLot\ParkingLotDemo;
+use StackOverFlow\StackOverFlowDemo;
 
-$demo = new ParkingLotDemo();
+$demo = new StackOverFlowDemo();
 $demo->run();

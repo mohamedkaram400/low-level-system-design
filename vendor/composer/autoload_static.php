@@ -7,16 +7,24 @@ namespace Composer\Autoload;
 class ComposerStaticInit633ddf67190d248856ca22f1f4a1f79c
 {
     public static $prefixLengthsPsr4 = array (
-        'A' => 
+        'S' => 
         array (
-            'App\\' => 4,
+            'StackOverFlow\\' => 14,
+        ),
+        'P' => 
+        array (
+            'ParkingLot\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'App\\' => 
+        'StackOverFlow\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/stack_overflow/src',
+        ),
+        'ParkingLot\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/designing_a_parking_lot_system/src',
         ),
     );
 

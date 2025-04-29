@@ -1,8 +1,8 @@
 <?php
-namespace App;
+namespace ParkingLot;
 
-use App\Vehicle;
-use App\Enums\VehicleType;
+use ParkingLot\Vehicle;
+use ParkingLot\Enums\VehicleType;
 
 class ParkingSpot
 {

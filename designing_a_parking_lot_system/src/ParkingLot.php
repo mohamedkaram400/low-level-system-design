@@ -1,8 +1,8 @@
 <?php
-namespace App;
+namespace ParkingLot;
 
-use App\Level;
-use App\Vehicle;
+use ParkingLot\Level;
+use ParkingLot\Vehicle;
 
 class ParkingLot
 {

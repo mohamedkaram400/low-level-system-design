@@ -2,7 +2,8 @@
     "name": "karam/designing_a_parking_lot_system",
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "ParkingLot\\": "designing_a_parking_lot_system/src/",
+            "StackOverFlow\\": "stack_overflow/src/"
         }
     },
     "authors": [

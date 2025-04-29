@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace ParkingLot;
 
-use App\Level;
-use App\ParkingLot;
-use App\VehicleFactory;
-use App\Enums\VehicleType;
+use ParkingLot\Level;
+use ParkingLot\ParkingLot;
+use ParkingLot\VehicleFactory;
+use ParkingLot\Enums\VehicleType;
 
 class ParkingLotDemo
 {
