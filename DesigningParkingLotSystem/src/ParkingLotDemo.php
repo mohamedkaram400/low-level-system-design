@@ -1,18 +1,17 @@
 <?php
 
-namespace ParkingLot;
+namespace MohamedKaram\ParkingLot;
 
-use ParkingLot\Level;
-use ParkingLot\ParkingLot;
-use ParkingLot\VehicleFactory;
-use ParkingLot\Enums\VehicleType;
+use MohamedKaram\ParkingLot\Level;
+use MohamedKaram\ParkingLot\ParkingLot;
+use MohamedKaram\ParkingLot\VehicleFactory;
+use MohamedKaram\ParkingLot\Enums\VehicleType;
 
 class ParkingLotDemo
 {
     public function run()
     {
         $parking_lot = ParkingLot::get_parking_lot();
-        var_dump($parking_lot);
         $parking_lot->add_level(new Level(1, 5, VehicleType::Car));
         $parking_lot->add_level(new Level(2, 4, VehicleType::Motorcycle));
         $parking_lot->add_level(new Level(3, 4, VehicleType::Truck));

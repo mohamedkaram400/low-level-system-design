@@ -1,9 +1,9 @@
 <?php
 
-namespace ParkingLot;
+namespace MohamedKaram\ParkingLot;
 
-use ParkingLot\Enums\VehicleType;
-use ParkingLot\ParkingSpot;
+use MohamedKaram\ParkingLot\ParkingSpot;
+use MohamedKaram\ParkingLot\Enums\VehicleType;
 
 class Level
 {

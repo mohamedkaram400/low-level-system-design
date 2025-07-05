@@ -1,5 +1,5 @@
 <?php
-namespace ParkingLot\Enums;
+namespace MohamedKaram\ParkingLot\Enums;
 
 enum VehicleType : string
 {

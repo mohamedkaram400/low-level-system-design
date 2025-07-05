@@ -1,8 +1,8 @@
 <?php
-namespace ParkingLot\VehicleTypes;
+namespace MohamedKaram\ParkingLot\VehicleTypes;
 
-use ParkingLot\Vehicle;
-use ParkingLot\Enums\VehicleType;
+use MohamedKaram\ParkingLot\Vehicle;
+use MohamedKaram\ParkingLot\Enums\VehicleType;
 
 class Car extends Vehicle
 {

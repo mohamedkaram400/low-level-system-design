@@ -1,8 +1,9 @@
 <?php
 
-namespace ParkingLot;
-use ParkingLot\Vehicle;
-use ParkingLot\VehicleTypes\Car;
+namespace MohamedKaram\ParkingLot;
+
+use MohamedKaram\ParkingLot\Vehicle;
+use MohamedKaram\ParkingLot\VehicleTypes\Car;
 
 class VehicleFactory
 {

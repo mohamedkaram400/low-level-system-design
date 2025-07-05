@@ -1,7 +1,7 @@
 <?php
-namespace ParkingLot;
+namespace MohamedKaram\ParkingLot;
 
-use ParkingLot\Enums\VehicleType;
+use MohamedKaram\ParkingLot\Enums\VehicleType;
 
 abstract class Vehicle
 {

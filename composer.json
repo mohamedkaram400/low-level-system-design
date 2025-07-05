@@ -1,9 +1,9 @@
 {
-    "name": "karam/designing_a_parking_lot_system",
+    "name": "mohamed-karam/low-level-design",
     "autoload": {
         "psr-4": {
-            "ParkingLot\\": "designing_a_parking_lot_system/src/",
-            "StackOverFlow\\": "stack_overflow/src/"
+            "MohamedKaram\\ParkingLot\\": "DesigningParkingLotSystem/src/",
+            "MohamedKaram\\StackOverFlow\\": "stack_overflow/src/"
         }
     },
     "authors": [
@@ -12,5 +12,8 @@
             "email": "mohamed.karam@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "nesbot/carbon": "^3.9",
+        "ramsey/uuid": "^4.7"
+    }
 }
