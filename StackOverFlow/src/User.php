@@ -1,11 +1,12 @@
 <?php
 
-namespace StackOverFlow;
+namespace MohamedKaram\StackOverFlow;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use StackOverFlow\Comment;
-use StackOverFlow\Question;
+use MohamedKaram\StackOverFlow\Comment;
+use MohamedKaram\StackOverFlow\Question;
+use MohamedKaram\StackOverFlow\Enums\ReputationEnum;
 
 class User
 {
@@ -39,7 +40,7 @@ class User
         $newAnswer = new Answer($question, $content, $auther);
         $this->answers[] = $newAnswer;
         $question->addAnswer($newAnswer);
-        $this->updateReputation(10);
+        $this->updateReputation(ReputationEnum::ANSWER_QUESTION->value);
         return $newAnswer;
     }
 
@@ -51,11 +52,11 @@ class User
         $this->updateReputation(2);
         return $newComment;
     }
+    
     public function updateReputation(int $value): void
     {
         $this->reputation += $value;
         $this->reputation = max(0, $this->reputation); # Ensure reputation doesn't go below 0
-
     }
 
     public function printUser(): void

@@ -1,8 +1,8 @@
 <?php
-namespace StackOverFlow;
+namespace MohamedKaram\StackOverFlow;
 
 use Carbon\Carbon;
-use StackOverFlow\Comment;
+use MohamedKaram\StackOverFlow\Comment;
 
 class Question
 {
@@ -26,5 +26,31 @@ class Question
         $this->tags = is_array($tags) ? $tags : [$tags]; 
         $this->votes = [];
         $this->comments = [];
+    }
+
+    public function addAnswer()
+    {
+        
+    }
+
+    public function addComment($id, $content, $auther)
+    {
+        $this->comments[] = new Comment($id,$content, $auther);
+    }
+
+
+    public function getComment($id, $title)
+    {
+
+    }
+
+    public function vote($user, $value)
+    {
+
+    }
+
+    public function getVoteCount($id)
+    {
+
     }
 }
