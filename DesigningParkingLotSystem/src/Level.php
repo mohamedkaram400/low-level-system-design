@@ -11,7 +11,7 @@ class Level
     
     /** @var ParkingSpot[] */
     public array $parking_spots;
-    public function __construct($floor_number, $num_spots, VehicleType $vehicle_type)
+    public function __construct(int $floor_number, int $num_spots, VehicleType $vehicle_type)
     {
         $this->floor_number = $floor_number;
         $this->parking_spots = [];
@@ -21,37 +21,37 @@ class Level
         }
     }
 
-    public function park_vehicle(Vehicle $vehicle): bool
+    public function parkVehicle(Vehicle $vehicle): bool
     {
         foreach ($this->parking_spots as $park_spot) {
 
-            if ($park_spot->is_available() && $park_spot->get_vehicle_type() === $vehicle->get_type()) {
-                $park_spot->park_vehicle($vehicle);
+            if ($park_spot->isAvailable() && $park_spot->getVehicleType() === $vehicle->getType()) {
+                $park_spot->parkVehicle($vehicle);
                 return true;
             }
         }
         return false;
     }
 
-    public function unpark_vehicle(Vehicle $vehicle): bool
+    public function unParkVehicle(Vehicle $vehicle): bool
     {
         foreach ($this->parking_spots as $park_spot) {
-            if (!$park_spot->is_available() && $park_spot->get_vehicle_type() == $vehicle->get_type()) {
-                $park_spot->unpark_vehicle($vehicle);
+            if (!$park_spot->isAvailable() && $park_spot->getVehicleType() == $vehicle->getType()) {
+                $park_spot->unParkVehicle($vehicle);
                 return true;
             }
         }
         return false;
     }
 
-    public function display_availability(): void
+    public function displayAvailability(): void
     {
         echo "Level {$this->floor_number} Availability:\n";
         foreach ($this->parking_spots as $parking_spot) {
-            echo "Spot " . $parking_spot->get_spot_number() . ": ";
+            echo "Spot " . $parking_spot->getSpotNumber() . ": ";
             
             // Check if the spot is available and print the status
-            if ($parking_spot->is_available()) {
+            if ($parking_spot->isAvailable()) {
                 echo "Available\n";
             } else {
                 echo "Occupied\n";

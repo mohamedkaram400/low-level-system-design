@@ -6,47 +6,49 @@ use MohamedKaram\ParkingLot\Enums\VehicleType;
 
 class ParkingSpot
 {
-    public int $spot_number;
-    public VehicleType $vehicle_type;
-    public ?Vehicle $parked_vehicle;
+    public int $spotNumber;
+    public VehicleType $vehicleType;
+    public ?Vehicle $parkedVehicle;
 
-    public function __construct($spot_number, VehicleType $vehicle_type)
+    public function __construct(int $spotNumber, VehicleType $vehicleType)
     {
-        $this->vehicle_type = $vehicle_type;
-        $this->spot_number = $spot_number;
-        $this->parked_vehicle = null;
+        $this->vehicleType = $vehicleType;
+        $this->spotNumber = $spotNumber;
+        $this->parkedVehicle = null;
     }
 
-    public function is_available() : bool 
+    public function isAvailable() : bool 
     {
-        return $this->parked_vehicle == null;
+        return $this->parkedVehicle == null;
     }
 
-    public function park_vehicle(Vehicle $vehicle): void
+    public function parkVehicle(Vehicle $vehicle): void
     {
-        if ($this->is_available() && $vehicle->get_type() === $this->get_vehicle_type()) {
-            $this->parked_vehicle = $vehicle;
+        if ($this->isAvailable() && $vehicle->getType() === $this->getVehicleType()) {
+            $this->parkedVehicle = $vehicle;
         }
     }
 
-    public function unpark_vehicle(Vehicle $vehicle): void
+    public function unParkVehicle(Vehicle $vehicle): void
     {
-        if (!$this->is_available() && $vehicle->get_type() == $this->get_vehicle_type()) {
-            $this->parked_vehicle = null;
+        if (!$this->isAvailable() && $vehicle->getType() == $this->getVehicleType()) {
+            $this->parkedVehicle = null;
         }
         
     }
 
-    public function get_parked_vehicle() : Vehicle 
+    public function getParkedVehicle() : Vehicle 
     {
-        return $this->parked_vehicle;
+        return $this->parkedVehicle;
     }
-    public function get_vehicle_type() : VehicleType 
+    
+    public function getVehicleType() : VehicleType 
     {
-        return $this->vehicle_type;
+        return $this->vehicleType;
     }
-    public function get_spot_number() : int  
+
+    public function getSpotNumber() : int  
     {
-        return $this->spot_number;
+        return $this->spotNumber;
     }
 }

@@ -7,6 +7,7 @@ use MohamedKaram\ParkingLot\Vehicle;
 class ParkingLot
 {
     private static ?ParkingLot $parking_lot = null;
+    
     protected array $levels;
 
     private function __construct(){}
@@ -21,7 +22,7 @@ class ParkingLot
         throw new \Exception("Cannot unserialize a singleton.");
     }
         
-    public static function get_parking_lot(): ParkingLot
+    public static function getParkingLot(): ParkingLot
     {
         if (self::$parking_lot == null) {
             self::$parking_lot = new self();
@@ -29,36 +30,35 @@ class ParkingLot
         return self::$parking_lot;
     }
 
-    public function add_level(Level $leve): void
+    public function addLevel(Level $leve): void
     {
         $this->levels[] = $leve;
     }
 
-    public function park_vehicle(Vehicle $vehicle): bool
+    public function parkVehicle(Vehicle $vehicle): bool
     {
         foreach ($this->levels as $level) {
-            var_dump($vehicle, $level->park_vehicle($vehicle));
-            if ($level->park_vehicle($vehicle)) {
+            if ($level->parkVehicle($vehicle)) {
                 return True;
             }
         }
         return false;
     }
 
-    public function unpark_vehicle(Vehicle $vehicle): bool
+    public function unParkVehicle(Vehicle $vehicle): bool
     {
         foreach ($this->levels as $level) {
-            if ($level->unpark_vehicle($vehicle)) {
+            if ($level->unParkVehicle($vehicle)) {
                 return True;
             }
         }
         return false;
     }
 
-    public function display_availability(): void
+    public function displayAvailability(): void
     {
         foreach ($this->levels as $level) {
-            $level->display_availability();
+            $level->displayAvailability();
         }
     }
 }
