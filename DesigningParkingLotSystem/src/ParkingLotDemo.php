@@ -34,18 +34,6 @@ class ParkingLotDemo
                 default => print("Invalid option. Try again.\n")
             };
         }
-
-        // Loop to park multiple vehicles
-        while (true) {
-            
-
-
-            $continue = strtolower(readline("Do you want to park another vehicle? (yes/no): "));
-            if ($continue !== 'yes') {
-                echo "Exiting the parking system. 👋\n";
-                break;
-            }
-        }
     }
 
     private function parkVehicleFlow($parkingLot)
