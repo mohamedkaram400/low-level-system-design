@@ -7,17 +7,17 @@ use MohamedKaram\ParkingLot\Enums\VehicleType;
 
 class Level
 {
-    public int $floor_number;
+    public int $floorNumber;
     
     /** @var ParkingSpot[] */
     public array $parking_spots;
-    public function __construct(int $floor_number, int $num_spots, VehicleType $vehicle_type)
+    public function __construct(int $floorNumber, int $num_spots, VehicleType $vehicleType)
     {
-        $this->floor_number = $floor_number;
+        $this->floorNumber = $floorNumber;
         $this->parking_spots = [];
 
         for ($i = 0; $i < $num_spots; $i++) {
-            $this->parking_spots[] = new ParkingSpot($i, $vehicle_type); 
+            $this->parking_spots[] = new ParkingSpot($i, $vehicleType); 
         }
     }
 
@@ -46,7 +46,7 @@ class Level
 
     public function displayAvailability(): void
     {
-        echo "Level {$this->floor_number} Availability:\n";
+        echo "Level {$this->floorNumber} Availability:\n";
         foreach ($this->parking_spots as $parking_spot) {
             echo "Spot " . $parking_spot->getSpotNumber() . ": ";
             

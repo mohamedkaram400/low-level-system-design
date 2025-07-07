@@ -5,19 +5,19 @@ use MohamedKaram\ParkingLot\Enums\VehicleType;
 
 abstract class Vehicle
 {
-    protected string $license_plate;
+    protected string $licensePlate;
     
     protected VehicleType $type;
 
-    public function __construct(string $license_plate, VehicleType $type)
+    public function __construct(string $licensePlate, VehicleType $type)
     {
-        $this->license_plate = $license_plate;
+        $this->licensePlate = $licensePlate;
         $this->type = $type;
     }
 
     public function getLicensePlate(): string
     {
-        return $this->license_plate;
+        return $this->licensePlate;
     }
 
     public function getType(): VehicleType

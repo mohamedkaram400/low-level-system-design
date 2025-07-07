@@ -34,7 +34,6 @@ class ParkingSpot
         if (!$this->isAvailable() && $vehicle->getType() == $this->getVehicleType()) {
             $this->parkedVehicle = null;
         }
-        
     }
 
     public function getParkedVehicle() : Vehicle 
