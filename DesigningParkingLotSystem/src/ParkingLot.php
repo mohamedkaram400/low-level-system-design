@@ -6,9 +6,11 @@ use MohamedKaram\ParkingLot\Vehicle;
 
 class ParkingLot
 {
-    private static ?ParkingLot $parking_lot = null;
+    private static ?ParkingLot $parkingLot = null;
     
     protected array $levels;
+
+    private array $registeredVehicles = [];
 
     private function __construct(){}
 
@@ -24,10 +26,10 @@ class ParkingLot
         
     public static function getParkingLot(): ParkingLot
     {
-        if (self::$parking_lot == null) {
-            self::$parking_lot = new self();
+        if (self::$parkingLot == null) {
+            self::$parkingLot = new self();
         }
-        return self::$parking_lot;
+        return self::$parkingLot;
     }
 
     public function addLevel(Level $leve): void
@@ -37,8 +39,16 @@ class ParkingLot
 
     public function parkVehicle(Vehicle $vehicle): bool
     {
+        $plate = $vehicle->getLicensePlate();
+
+        if (isset($this->registeredVehicles[$plate])) {
+            echo "❌ Vehicle with license plate '{$plate}' is already parked.\n";
+            return false;
+        }
+
         foreach ($this->levels as $level) {
             if ($level->parkVehicle($vehicle)) {
+                $this->registeredVehicles[$plate] = $vehicle;
                 return True;
             }
         }
@@ -47,8 +57,11 @@ class ParkingLot
 
     public function unParkVehicle(Vehicle $vehicle): bool
     {
+        $plate = $vehicle->getLicensePlate();
+
         foreach ($this->levels as $level) {
             if ($level->unParkVehicle($vehicle)) {
+                unset($this->registeredVehicles[$plate]);
                 return True;
             }
         }
@@ -60,5 +73,10 @@ class ParkingLot
         foreach ($this->levels as $level) {
             $level->displayAvailability();
         }
+    }
+
+    public function getRegisteredVehicles(): array
+    {
+        return $this->registeredVehicles;
     }
 }

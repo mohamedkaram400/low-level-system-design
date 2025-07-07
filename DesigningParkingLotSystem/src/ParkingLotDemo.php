@@ -11,27 +11,80 @@ class ParkingLotDemo
 {
     public function run(): void
     {
-        $parking_lot = ParkingLot::getParkingLot();
-        $parking_lot->addLevel(new Level(1, 5, VehicleType::Car));
-        $parking_lot->addLevel(new Level(2, 4, VehicleType::Motorcycle));
-        $parking_lot->addLevel(new Level(3, 4, VehicleType::Truck));
+        $parkingLot = ParkingLot::getParkingLot();
+        $parkingLot->addLevel(new Level(1, 5, VehicleType::Car));
+        $parkingLot->addLevel(new Level(2, 4, VehicleType::Motorcycle));
+        $parkingLot->addLevel(new Level(3, 4, VehicleType::Truck));
 
+
+        while (true) {
+            echo "\n--- Parking Lot Menu ---\n";
+            echo "1. Park a vehicle\n";
+            echo "2. Unpark a vehicle\n";
+            echo "3. Show availability\n";
+            echo "4. Exit\n";
+
+            $choice = readline("Choose an option (1-4): ");
+
+            match ($choice) {
+                '1' => $this->parkVehicleFlow($parkingLot),
+                '2' => $this->unparkVehicleFlow($parkingLot),
+                '3' => $parkingLot->displayAvailability(),
+                '4' => exit("Exiting the parking system. 👋\n"),
+                default => print("Invalid option. Try again.\n")
+            };
+        }
+
+        // Loop to park multiple vehicles
+        while (true) {
+            
+
+
+            $continue = strtolower(readline("Do you want to park another vehicle? (yes/no): "));
+            if ($continue !== 'yes') {
+                echo "Exiting the parking system. 👋\n";
+                break;
+            }
+        }
+    }
+
+    private function parkVehicleFlow($parkingLot)
+    {
         $type = readline("Enter vehicle type (car, motorcycle, truck): ");
-        $license_plate = readline("Enter vehicle license plate: ");
+        $licensePlate = readline("Enter vehicle license plate: ");
 
         try {
-            $vehicle = VehicleFactory::createVehicle($type, $license_plate);
+            $vehicle = VehicleFactory::createVehicle($type, $licensePlate);
         } catch (\Exception $e) {
-            echo $e->getMessage() . PHP_EOL;
+            echo "❌ " . $e->getMessage() . PHP_EOL;
             return;
         }
 
-        if ($parking_lot->parkVehicle($vehicle)) {
-            echo "Vehicle parked successfully!" . PHP_EOL;
+        if ($parkingLot->parkVehicle($vehicle)) {
+            echo "✅ Vehicle parked successfully!\n";
         } else {
-            echo "No available spot for this vehicle type." . PHP_EOL;
+            echo "❌ No available spot or duplicate plate.\n";
         }
+    }
 
-        $parking_lot->displayAvailability();
+    private function unparkVehicleFlow($parkingLot)
+    {
+        $licensePlate = readline("Enter vehicle license plate: ");
+
+        // Check if vehicle is in registry
+        $registeredVehicles = $parkingLot->getRegisteredVehicles();
+        
+        if (!isset($registeredVehicles[$licensePlate])) {
+            echo "❌ No vehicle found with license plate '$licensePlate'.\n";
+            return;
+        }
+    
+        $vehicle = $registeredVehicles[$licensePlate];
+
+        if ($parkingLot->unparkVehicle($vehicle)) {
+            echo "✅ Vehicle unparked successfully!\n";
+        } else {
+            echo "❌ Failed to unpark the vehicle.\n";
+        }
     }
 }
