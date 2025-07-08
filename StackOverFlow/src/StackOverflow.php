@@ -1,7 +1,6 @@
 <?php
 namespace MohamedKaram\StackOverFlow;
 
-use Ramsey\Uuid\Uuid;
 use MohamedKaram\StackOverFlow\User;
 use MohamedKaram\StackOverFlow\Enums\ReputationEnum;
 
@@ -20,73 +19,42 @@ class StackOverflow
         $this->tags = [];
     }
     
-    public function createUser($username, $email)
+    public function createUser($username, $email): User
     {
         $userId = count($this->users) + 1;
         $user = new User((int) $userId, $username, $email);
+
         $this->users[] = $user;
         return $user;
     }
 
-    public function askQuestion($user, $title, $content, $tags)
+    public function askQuestion($user, $title, $content, $tags): Question
     {
-        $questionId = Uuid::uuid4()->toString();
+        $questionId = count($this->questions) + 1;
         $question = $user->postQuestion($questionId, $title, $content, $tags);
+
         $user->updateReputation(ReputationEnum::ASK_QUESTION->value);
         $this->questions[] = $question;
         $this->tags = is_array($tags) ? $tags : [$tags]; 
         return $question;
     }
 
-    public function answerQuestion($user, $question, $content)
+    public function answerQuestion($user, $question, $content): Answer
     {
-        $answer = $user->answerQuestion($question, $content);
+        $answerId = count($this->answers) + 1;
+        $answer = $user->answerQuestion($answerId, $question, $content);
+        
         $this->answers[] = $answer;
         return $answer;
     }
-
-    public function addComment($user, $commentable, $content)
+    
+    public function addComment($user, $commentable, $content): Comment
     {
         return $user->commentOn($commentable, $content);
     }
 
-    public function voteQuestion($user, $question, $value)
-    {
-        $question->vote($user, $value);
-    }
-
-    public function voteAnswer($user, $answer, $value)
-    {
-        $answer->vote($user, $value);
-    }
-
-    public function acceptAnswer($answer)
+    public function acceptAnswer($answer): void
     {
         $answer->accept();
     }
-
-    public function getQuestionsByUser($user)
-    {
-        return $user->questions;
-    }
-
-    // public function getUser($userId)
-    // {
-    //     return $this->users->get($userId);
-    // }
-
-    // public function getQuestion($questionId)
-    // {
-    //     return $this->questions->get($questionId);
-    // }
-
-    // public function getAnswer($answerId)
-    // {
-    //     return $this->answers->get($answerId);
-    // }
-
-    // public function getTag($name)
-    // {
-    //     return $this->tags->get($name);
-    // }
 }

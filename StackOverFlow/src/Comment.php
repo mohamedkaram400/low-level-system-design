@@ -5,7 +5,6 @@ use Carbon\Carbon;
 
 class Comment
 {
-
     public $id;
     public $content;
     public $auther;

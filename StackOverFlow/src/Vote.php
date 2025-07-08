@@ -3,8 +3,8 @@ namespace MohamedKaram\StackOverFlow;
 
 class Vote
 {
-    public string $user;
-    public int $value;
+    public User $user;
+    public $value;
     public function __construct($user, $value)
     {
         $this->user = $user;

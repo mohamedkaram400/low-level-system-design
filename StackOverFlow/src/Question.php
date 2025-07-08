@@ -2,9 +2,8 @@
 namespace MohamedKaram\StackOverFlow;
 
 use Carbon\Carbon;
-use MohamedKaram\StackOverFlow\Comment;
 
-class Question
+class Question implements Commentable
 {
     public $id;
     public $title;
@@ -14,6 +13,7 @@ class Question
     public $tags;
     public $votes;
     public $comments;
+    public $answers;
 
 
     public function __construct($id, $title, $content, $auther, $tags)
@@ -23,34 +23,32 @@ class Question
         $this->content = $content;
         $this->auther = $auther;
         $this->creationDate = Carbon::now();
-        $this->tags = is_array($tags) ? $tags : [$tags]; 
-        $this->votes = [];
         $this->comments = [];
+        $this->answers = [];
+        $this->votes = [];
+        $this->tags = array_map(
+            fn($name, $index) => new Tag($index + 1, $name),
+            $tags,
+            array_keys($tags)
+        );       
     }
 
-    public function addAnswer()
+    public function addAnswer($answer): void
     {
-        
+        if (in_array($answer, $this->answers)) {
+            throw \Exception('This answer is already registerd');
+        }
+
+        $this->answers = $answer;
     }
 
-    public function addComment($id, $content, $auther)
+    public function addComment($comment): void
     {
-        $this->comments[] = new Comment($id,$content, $auther);
+        $this->comments[] = $comment;
     }
 
-
-    public function getComment($id, $title)
+    public function getComment(): array
     {
-
-    }
-
-    public function vote($user, $value)
-    {
-
-    }
-
-    public function getVoteCount($id)
-    {
-
+        return $this->comments;
     }
 }

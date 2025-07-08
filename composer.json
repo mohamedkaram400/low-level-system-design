@@ -3,7 +3,7 @@
     "autoload": {
         "psr-4": {
             "MohamedKaram\\ParkingLot\\": "DesigningParkingLotSystem/src/",
-            "MohamedKaram\\StackOverFlow\\": "stack_overflow/src/"
+            "MohamedKaram\\StackOverFlow\\": "StackOverFlow/src/"
         }
     },
     "authors": [

@@ -25,31 +25,34 @@ class User
         $this->username = $username;
         $this->email = $email;
         $this->reputation = 0;
+        $this->comments = [];
     }
 
-    public function postQuestion($id, $title, $content, $tags): Question
+    public function postQuestion($questionId, $title, $content, $tags): Question
     {
-        $newQuestion = new Question($id, $title, $content, $this, $tags);
+        $newQuestion = new Question($questionId, $title, $content, $this, $tags);
         $this->questions[] = $newQuestion;
-        $this->updateReputation(5);
+        $this->updateReputation(ReputationEnum::ASK_QUESTION->value);
         return $newQuestion; 
     }
 
-    public function answerQuestion($question, $content, $auther): Answer
+    public function answerQuestion($answerId, $question, $content): Answer
     {
-        $newAnswer = new Answer($question, $content, $auther);
+        $newAnswer = new Answer($answerId, $question, $content, $this);
         $this->answers[] = $newAnswer;
         $question->addAnswer($newAnswer);
         $this->updateReputation(ReputationEnum::ANSWER_QUESTION->value);
         return $newAnswer;
     }
 
-    public function commentOn($id, $commentable, string $content, $auther): Comment
+    public function commentOn($commentable, $content): Comment
     {
-        $newComment = new Comment($id, $content, $auther);
+        $commentId = count($this->comments) + 1;
+        $newComment = new Comment($commentId, $content, $this);
+        
         $this->comments[] = $newComment;
         $commentable->addComment($newComment);
-        $this->updateReputation(2);
+        $this->updateReputation(ReputationEnum::ADD_COMMENT->value);
         return $newComment;
     }
     
@@ -57,6 +60,21 @@ class User
     {
         $this->reputation += $value;
         $this->reputation = max(0, $this->reputation); # Ensure reputation doesn't go below 0
+    }
+
+    public function getUserId(): int
+    {
+        return $this->id;
+    }
+
+    public function getUserName(): string
+    {
+        return $this->username;
+    }
+
+    public function getReputation(): int
+    {
+        return $this->reputation;
     }
 
     public function printUser(): void
@@ -71,7 +89,9 @@ class User
         echo "\nQuestions:\n";
         if (!empty($this->questions)) {
             foreach ($this->questions as $question) {
-                echo "  - [{$question->id}] {$question->title}\n";
+                $tagNames = array_map(fn($tag) => $tag->name, $question->tags);
+                $tagList = !empty($tagNames) ? implode(', ', $tagNames) : 'No tags';
+                echo "  - [{$question->id}] {$question->title} (Tags: {$tagList})\n";
             }
         } else {
             echo "  No questions posted.\n";
@@ -94,6 +114,7 @@ class User
         } else {
             echo "  No comments posted.\n";
         }
+        echo "\n===============================================================\n";
     }
 }
 
