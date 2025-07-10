@@ -57,4 +57,14 @@ class StackOverflow
     {
         $answer->accept();
     }
+
+    public function voteQuestion($user, $question, $value): void
+    {
+        $question->addVote($user, $value);
+    }
+
+    public function voteAnswer($user, $answer, $value): void
+    {
+        $answer->addVote($user, $value);
+    }
 }

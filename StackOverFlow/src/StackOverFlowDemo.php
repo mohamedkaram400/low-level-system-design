@@ -24,6 +24,13 @@ class StackOverFlowDemo
         # Ahmed comments on the question
         $system->addComment($ahmed, $mohamedQuestion, "Great question! I'm also interested in learning about this.");
 
+        # Mohamed comments on the ali answer
+        $system->addComment($mohamed, $aliAnswer, "Thanks for the explanation! Could you provide a code example?");
+
+        # Ahmed votes in mohamed question and ali answer
+        $system->voteQuestion($ahmed, $mohamedQuestion, 1);
+        $system->voteQuestion($ahmed, $aliAnswer, 1);
+
         // var_dump($question1);
         $mohamed->printUser();
         $ali->printUser();

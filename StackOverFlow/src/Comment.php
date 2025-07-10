@@ -7,13 +7,13 @@ class Comment
 {
     public $id;
     public $content;
-    public $auther;
+    public $author;
     public $creationDate;
-    public function __construct($id, $content, $auther)
+    public function __construct($id, $content, $author)
     {
         $this->id = $id;
         $this->content = $content;
-        $this->auther = $auther;
+        $this->author = $author;
         $this->creationDate = Carbon::now();
     }
 }

@@ -1,41 +1,42 @@
 <?php
 namespace MohamedKaram\StackOverFlow;
 
-use Carbon\Carbon;
 use Exception;
+use Carbon\Carbon;
+use MohamedKaram\StackOverFlow\Voteble;
+use MohamedKaram\StackOverFlow\Traits\HasVotes;
+use MohamedKaram\StackOverFlow\Traits\HasComments;
 use MohamedKaram\StackOverFlow\Enums\ReputationEnum;
 
-class Answer implements Commentable 
+class Answer implements Commentable, Voteble
 {
+    use HasComments, HasVotes;
+
     public $id;
     public $question;
     public $content;
-    public $auther;
+    public $author;
     public $creationDate;
-    public $votes;
-    public $comments;
     public $isAccepted;
 
-    public function __construct($answerId, $question, $content, $auther)
+    public function __construct($answerId, $question, $content, $author)
     {
         $this->id = $answerId;
         $this->question = $question;
         $this->content = $content;
-        $this->auther = $auther;
+        $this->author = $author;
         $this->creationDate = Carbon::now();
-        $this->votes = [];
-        $this->comments = [];
         $this->isAccepted = false;
     }
 
     public function accept(): void
     {
         if ($this->isAccepted) {
-            throw \Exception('This answer is already accepted');
+            throw new \Exception('This answer is already accepted');
         }
 
         $this->isAccepted = true;
-        $this->auther->updateReputation(ReputationEnum::ACCEPT_ANSWER->value);
+        $this->author->updateReputation(ReputationEnum::ACCEPTED_ANSWER->value);
     }
 
     public function addComment($comment): void
@@ -46,5 +47,36 @@ class Answer implements Commentable
     public function getComment(): array
     {
         return $this->comments;
+    }
+
+    public function addVote(User $voter, $value): void
+    {
+        if (! in_array($value, [-1, 1])) {
+            throw new \Exception('Vote value must be either 1 or -1');
+        }
+
+        // Prevent same user from voting multiple times
+        foreach ($this->votes as $existingVote) {
+            if ($existingVote->voter === $voter) {
+                throw new \Exception('You have already voted on this post.');
+            }
+        }
+
+        
+        $vote = new Vote($voter, $value);
+        $this->votes[] = $vote;
+
+        // Update the post author's reputation
+        if ($value === 1) {
+            $this->author->updateReputation(ReputationEnum::UPVOTE_QUESTION->value);
+        } else {
+            $this->author->updateReputation(ReputationEnum::DOWNVOTED->value);
+            $voter->updateReputation(ReputationEnum::CAST_DOWNVOTE->value); // penalize the voter
+        }
+    }
+
+    public function getVoteCount(): int
+    {
+        return count($this->votes);
     }
 }
