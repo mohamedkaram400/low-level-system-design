@@ -2,9 +2,11 @@
 namespace MohamedKaram\StackOverFlow;
 
 use Carbon\Carbon;
-use MohamedKaram\StackOverFlow\Enums\ReputationEnum;
 use MohamedKaram\StackOverFlow\Traits\HasVotes;
 use MohamedKaram\StackOverFlow\Traits\HasComments;
+use MohamedKaram\StackOverFlow\Enums\ReputationEnum;
+use MohamedKaram\StackOverFlow\Observers\ReputationSubject;
+use MohamedKaram\StackOverFlow\Observers\ReputationChangeHandler;
 
 class Question implements Commentable, Voteble
 {
@@ -17,7 +19,6 @@ class Question implements Commentable, Voteble
     public $creationDate;
     public $tags;
     public $answers;
-
 
     public function __construct($id, $title, $content, $author, $tags)
     {
@@ -69,14 +70,29 @@ class Question implements Commentable, Voteble
         $vote = new Vote($voter, $value);
         $this->votes[] = $vote;
 
-        // Update the post author's reputation
+
         if ($value === 1) {
-            var_dump(ReputationEnum::UPVOTE_QUESTION->value);
-            $this->author->updateReputation(ReputationEnum::UPVOTE_QUESTION->value);
+            $subject = new ReputationSubject($this->author, ReputationEnum::UPVOTE_QUESTION->value);
+            $subject->attach(new ReputationChangeHandler());
+            $subject->notify();
         } else {
-            $this->author->updateReputation(ReputationEnum::DOWNVOTED->value);
-            $voter->updateReputation(ReputationEnum::CAST_DOWNVOTE->value); // penalize the voter
+            // Author loses reputation
+            $subject = new ReputationSubject($this->author, ReputationEnum::DOWNVOTED->value);
+            $subject->attach(new ReputationChangeHandler());
+            $subject->notify();
+
+            // Voter loses for casting a downvote
+            $subject = new ReputationSubject($voter, ReputationEnum::CAST_DOWNVOTE->value);
+            $subject->attach(new ReputationChangeHandler());
+            $subject->notify();
         }
+        // Update the post author's reputation
+        // if ($value === 1) {
+        //     $this->author->updateReputation(ReputationEnum::UPVOTE_QUESTION->value);
+        // } else {
+        //     $this->author->updateReputation(ReputationEnum::DOWNVOTED->value);
+        //     $voter->updateReputation(ReputationEnum::CAST_DOWNVOTE->value); // penalize the voter
+        // }
     }
 
     public function getVoteCount(): int
