@@ -3,7 +3,8 @@
     "autoload": {
         "psr-4": {
             "MohamedKaram\\ParkingLot\\": "DesigningParkingLotSystem/src/",
-            "MohamedKaram\\StackOverFlow\\": "StackOverFlow/src/"
+            "MohamedKaram\\StackOverFlow\\": "StackOverFlow/src/",
+            "MohamedKaram\\VendingMachine\\": "VendingMachine/src/"
         }
     },
     "authors": [
