@@ -6,13 +6,15 @@ use MohamedKaram\VendingMachine\Product;
 use MohamedKaram\VendingMachine\Enums\CoinEnum;
 use MohamedKaram\VendingMachine\Enums\NoteEnum;
 use MohamedKaram\VendingMachine\VendingMachine;
+use MohamedKaram\VendingMachine\UI\ConsoleOutput;
 
 class VendingMachineDemo
 {
     public function run()
     {
+        $output = new ConsoleOutput();
         // ✅ Correct Singleton usage
-        $vendingMachine = VendingMachine::getVendingMachine();
+        $vendingMachine = VendingMachine::getVendingMachine($output);
 
         # Add products to the inventory
         $coke = new Product(1, "Coke", 4);

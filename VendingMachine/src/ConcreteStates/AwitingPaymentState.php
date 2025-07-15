@@ -17,7 +17,7 @@ class AwitingPaymentState implements VendingMachineStateInterface
 
     public function selectProduct($productId): void
     {
-        echo "\nProduct already selected. Please make payment.\n";
+        $this->vendingMachine->output->print("Product already selected. Please make payment.");
     }
 
     public function insertCoin($coin): void
@@ -46,11 +46,11 @@ class AwitingPaymentState implements VendingMachineStateInterface
 
     public function dispenseProduct(): void
     {
-        echo "\nPlease make payment first.\n";
+        $this->vendingMachine->output->print("Please make payment first. (Insert Coins or Notes)");
     }
 
     public function returnChange(): void
     {
-        echo "\nNo change to return.\n";
+        $this->vendingMachine->output->print("No change to return.");
     }
 }

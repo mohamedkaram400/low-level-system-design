@@ -15,22 +15,22 @@ class ReturnChangeState implements VendingMachineStateInterface
 
     public function selectProduct($productId): void
     {
-        echo "\nProduct already selected. Please make payment.\n";
+        $this->vendingMachine->output->print("Product already selected. Please make payment.");
     }
 
     public function insertCoin($coin): void
     {
-        echo "\nCoin inserted: {$coin->name}\n";
+        $this->vendingMachine->output->print("Coin inserted: {$coin->name}");
     }
 
     public function insertNote($note): void
     {
-        echo "\nNote inserted: {$note->name}\n";
+        $this->vendingMachine->output->print("Note inserted: {$note->name}");
     }
 
     public function dispenseProduct(): void
     {
-        echo "\nPlease make payment first.\n";
+        $this->vendingMachine->output->print("Please make payment first. (Insert Coins or Notes)");
     }
 
     public function returnChange(): int

@@ -27,21 +27,21 @@ class IdleState implements VendingMachineStateInterface
 
     public function insertCoin($coin): void
     {
-        echo "\nPlease select a product first.\n";
+        $this->vendingMachine->output->print("Please select a product first.");
     }
 
     public function insertNote($note): void
     {
-        echo "\nPlease select a product first.\n";
+        $this->vendingMachine->output->print("Please select a product first.");
     }
 
     public function dispenseProduct(): void
     {
-        echo "\nPlease select a product and make payment.\n";
+        $this->vendingMachine->output->print("Please select a product and make payment.");
     }
 
     public function returnChange(): void
     {
-        echo "\nNo change to return.\n";
+        $this->vendingMachine->output->print("No change to return.");
     }
 }

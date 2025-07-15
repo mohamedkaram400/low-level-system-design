@@ -15,17 +15,17 @@ class DispenseState implements VendingMachineStateInterface
 
     public function selectProduct($productId): void
     {
-        echo "\nProduct already selected. Please collect the dispensed product.\n";
+        $this->vendingMachine->output->print("Product already selected. Please collect the dispensed product.");
     }
 
     public function insertCoin($coin): void
     {
-        echo "\nPayment already made. Please collect the dispensed product.\n";
+        $this->vendingMachine->output->print("Payment already made. Please collect the dispensed product.");
     }
 
     public function insertNote($note): void
     {
-        echo "\nPayment already made. Please collect the dispensed product.\n";
+        $this->vendingMachine->output->print("Payment already made. Please collect the dispensed product.");
     }
 
     public function dispenseProduct(): void
@@ -41,6 +41,6 @@ class DispenseState implements VendingMachineStateInterface
 
     public function returnChange(): void
     {
-        echo "\nPlease collect the dispensed product first.\n";
+        $this->vendingMachine->output->print("Please collect the dispensed product first.\n");
     }
 }

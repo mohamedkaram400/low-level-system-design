@@ -4,6 +4,7 @@ namespace MohamedKaram\VendingMachine;
 use MohamedKaram\VendingMachine\Product;
 use MohamedKaram\VendingMachine\InventoryManager;
 use MohamedKaram\VendingMachine\ConcreteStates\IdleState;
+use MohamedKaram\VendingMachine\Interfaces\OutputInterface;
 use MohamedKaram\VendingMachine\Interfaces\VendingMachineStateInterface;
 
 class VendingMachine
@@ -12,11 +13,13 @@ class VendingMachine
     public InventoryManager $inventoryManager;
     public VendingMachineStateInterface $state;
     public IdleState $idleState;
+    public OutputInterface $output;
     public ?Product $selectedProduct;
     public int $totalPayment;
 
-    private function __construct()
+    private function __construct(OutputInterface $output)
     {
+        $this->output = $output;
         $this->inventoryManager = new InventoryManager();
         $this->idleState = new IdleState($this);
         $this->state = $this->idleState;
@@ -33,10 +36,10 @@ class VendingMachine
         throw new \Exception("Cannot unserialize a singleton.");
     }  
 
-    public static function getVendingMachine() : self
+    public static function getVendingMachine(OutputInterface $output) : self
     {
         if (self::$vendingMachine == null) {
-            self::$vendingMachine = new self();
+            self::$vendingMachine = new self($output);
         }   
         return self::$vendingMachine;
     }
