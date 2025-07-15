@@ -1,6 +1,7 @@
 <?php
+namespace MohamedKaram\VendingMachine\Enums;
 
-enum Note : int
+enum NoteEnum : int
 {
     case ONE = 1;
     case FIVE = 5;

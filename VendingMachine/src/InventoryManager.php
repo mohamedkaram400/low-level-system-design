@@ -2,10 +2,18 @@
 namespace MohamedKaram\VendingMachine;
 
 use MohamedKaram\VendingMachine\Product;
+use MohamedKaram\VendingMachine\Exception\ProductNotFoundException;
  
 class InventoryManager
 {
     private array $products = [];
+
+    public function getProduct($productId)
+    {
+        $this->checkProudctFound($productId);
+
+        return $this->products[$productId]['product'];
+    }
 
     public function addProduct(Product $product, int $qty): void
     {
@@ -14,30 +22,37 @@ class InventoryManager
             'qty' => $qty
         ];
     }
-    public function removeProduct($productName)
+
+    public function updateProductQty($productId, $qty): void
     {
-        
-    }
-    public function updateProductQty($product)
-    {
-        
-    }
-    public function getProductQty($product)
-    {
-        
-    }
-    public function getProduct($productId)
-    {
-        if (in_array($productId, $this->products[$productId])) {
-            return $this->products[$productId]['product'] ?? null;
-        }
-    }
-    public function isAvilable($productId)
-    {
-        if (in_array($productId, $this->products)) {
-            return true;
-        }
-        return false;
+        $this->checkProudctFound($productId);
+
+        $this->products[$productId]['qty'] += $qty;
     }
 
+    public function removeProduct($productId): void
+    {
+        $this->checkProudctFound($productId);
+
+        $this->products[$productId]['qty'] -= 1;
+    }
+
+    public function getProductQty($productId)
+    {
+        $this->checkProudctFound($productId);
+
+        return $this->products[$productId]['qty'];
+    }
+
+    public function isAvailable($productId): bool
+    {
+        return isset($this->products[$productId]) && $this->products[$productId]['qty'] > 0;
+    }
+
+    private function checkProudctFound($productId): void
+    {
+        if (!isset($this->products[$productId])) {
+            throw new ProductNotFoundException($productId);
+        }
+    }
 }

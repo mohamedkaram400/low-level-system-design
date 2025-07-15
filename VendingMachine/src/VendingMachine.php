@@ -4,27 +4,23 @@ namespace MohamedKaram\VendingMachine;
 use MohamedKaram\VendingMachine\Product;
 use MohamedKaram\VendingMachine\InventoryManager;
 use MohamedKaram\VendingMachine\ConcreteStates\IdleState;
-use MohamedKaram\VendingMachine\ConcreteStates\ReadyState;
 use MohamedKaram\VendingMachine\Interfaces\VendingMachineStateInterface;
 
 class VendingMachine
 {
     private static ?VendingMachine $vendingMachine = null;
-    public VendingMachineStateInterface $vendingMachineStateInterface;
     public InventoryManager $inventoryManager;
     public VendingMachineStateInterface $state;
     public IdleState $idleState;
-    public ReadyState $readyState;
-    public Product $selectedProduct;
-    private int $balance;
-    private int $totalCoins;
+    public ?Product $selectedProduct;
+    public int $totalPayment;
 
     private function __construct()
     {
         $this->inventoryManager = new InventoryManager();
         $this->idleState = new IdleState($this);
-        $this->readyState = new ReadyState($this);
         $this->state = $this->idleState;
+        $this->totalPayment = 0;
     }
 
     private function __clone(): void
