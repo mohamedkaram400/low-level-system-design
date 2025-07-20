@@ -4,7 +4,8 @@
         "psr-4": {
             "MohamedKaram\\ParkingLot\\": "DesigningParkingLotSystem/src/",
             "MohamedKaram\\StackOverFlow\\": "StackOverFlow/src/",
-            "MohamedKaram\\VendingMachine\\": "VendingMachine/src/"
+            "MohamedKaram\\VendingMachine\\": "VendingMachine/src/",
+            "MohamedKaram\\LoggingFramework\\": "LoggingFramework/src/"
         }
     },
     "authors": [
