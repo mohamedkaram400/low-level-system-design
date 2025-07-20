@@ -12,7 +12,6 @@ class VendingMachine
     private static ?VendingMachine $vendingMachine = null;
     public InventoryManager $inventoryManager;
     public VendingMachineStateInterface $state;
-    public IdleState $idleState;
     public OutputInterface $output;
     public ?Product $selectedProduct;
     public int $totalPayment;
@@ -21,8 +20,7 @@ class VendingMachine
     {
         $this->output = $output;
         $this->inventoryManager = new InventoryManager();
-        $this->idleState = new IdleState($this);
-        $this->state = $this->idleState;
+        $this->state = new IdleState($this);
         $this->totalPayment = 0;
     }
 
