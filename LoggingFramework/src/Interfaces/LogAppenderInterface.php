@@ -1,8 +1,9 @@
 <?php
+namespace MohamedKaram\LoggingFramework\Interfaces;
 
 use LogMessage;
 
-interface LogAppender
+interface LogAppenderInterface
 {
     public function append(LogMessage $logMessage): void;
 }

@@ -1,10 +1,11 @@
 <?php
+namespace MohamedKaram\LoggingFramework\Enums;
 
-enum LogLevel : string
+enum LogLevel : int
 {
-    case DEBUG = 'debug'; 
-    case INFO = 'info';
-    case WARNING = 'wrning'; 
-    case ERROR = 'error';
-    case FATAL = 'fatal';
+    case DEBUG = 1; 
+    case INFO = 2;
+    case WARNING = 3; 
+    case ERROR = 4;
+    case FATAL = 5;
 }

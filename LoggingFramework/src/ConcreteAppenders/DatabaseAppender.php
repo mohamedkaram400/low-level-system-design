@@ -1,6 +1,8 @@
 <?php
 
-class DatabaseAppender implements LogAppender
+use MohamedKaram\LoggingFramework\Interfaces\LogAppenderInterface;
+
+class DatabaseAppender implements LogAppenderInterface
 {
     public function append(LogMessage $logMessage): void 
     {
