@@ -1,7 +1,7 @@
 <?php
 namespace MohamedKaram\LoggingFramework\Main;
 
-use LogMessage;
+use MohamedKaram\LoggingFramework\LogMessage;
 use MohamedKaram\LoggingFramework\LoggerConfig;
 use MohamedKaram\LoggingFramework\Enums\LogLevel;
 use MohamedKaram\LoggingFramework\ConcreteAppenders\ConsoleAppender;
@@ -31,47 +31,47 @@ class Logger
 
     public static function getInstance(): Logger
     {
-        $consoleAppender = new ConsoleAppender();
         if (self::$logger == null) {
-            self::$logger = new self($consoleAppender);
+            self::$logger = new self(new ConsoleAppender());
         }
         return self::$logger;
     }
 
-    public function setLoggerConfig(LoggerConfig $loggerConfig)
+    public function setLoggerConfig(LoggerConfig $loggerConfig): void
     {
         $this->loggerConfig = $loggerConfig;
     }
 
-    public function log(LogLevel $logLevel, string $msg)
+    public function log(LogLevel $logLevel, string $msg): void
     {
-        if ($logLevel->value >= $this->loggerConfig->getLogLevel()) {
+        if ($logLevel->value >= $this->loggerConfig->getLogLevel()->value) {
             $logMessage = new LogMessage($logLevel, $msg);
+
             $this->loggerConfig->getLogAppender()->append($logMessage);
         }
     }
 
-    public function debug(string $msg)
+    public function debug(string $msg): void
     {
         $this->log(LogLevel::DEBUG, $msg);
     }
 
-    public function info(string $msg)
+    public function info(string $msg): void
     {
         $this->log(LogLevel::INFO, $msg);
     }
 
-    public function warning(string $msg)
+    public function warning(string $msg): void
     {
         $this->log(LogLevel::WARNING, $msg);
     }
 
-    public function error(string $msg)
+    public function error(string $msg): void
     {
         $this->log(LogLevel::ERROR, $msg);
     }
 
-    public function fatal(string $msg)
+    public function fatal(string $msg): void
     {
         $this->log(LogLevel::FATAL, $msg);
     }

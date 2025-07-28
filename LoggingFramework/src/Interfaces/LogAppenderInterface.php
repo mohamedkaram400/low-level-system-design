@@ -1,7 +1,7 @@
 <?php
 namespace MohamedKaram\LoggingFramework\Interfaces;
 
-use LogMessage;
+use MohamedKaram\LoggingFramework\LogMessage;
 
 interface LogAppenderInterface
 {

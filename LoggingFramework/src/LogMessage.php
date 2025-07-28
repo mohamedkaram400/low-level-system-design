@@ -1,4 +1,5 @@
 <?php
+namespace MohamedKaram\LoggingFramework;
 
 use Carbon\Carbon;
 use MohamedKaram\LoggingFramework\Enums\LogLevel;
@@ -18,6 +19,6 @@ class LogMessage
 
     public function __toString(): string
     {
-        return "[{$this->timestamp}] [{$this->level->name}] {$this->content}";
+        return "[{$this->timestamp}] [{$this->level->name}] {$this->content}" . PHP_EOL;
     }
 }

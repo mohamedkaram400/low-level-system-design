@@ -2,35 +2,36 @@
 namespace MohamedKaram\LoggingFramework;
 
 use MohamedKaram\LoggingFramework\Enums\LogLevel;
+use MohamedKaram\LoggingFramework\Interfaces\LogAppenderInterface;
 
 class LoggerConfig
 {
     public LogLevel $logLevel;
 
-    public $appender;
+    public LogAppenderInterface $appender;
 
-    public function __construct(LogLevel $logLevel, $appender)
+    public function __construct(LogLevel $logLevel, LogAppenderInterface $appender)
     {
         $this->logLevel = $logLevel;
         $this->appender = $appender;
     }
 
-    public function addAppender($logAppender)
+    public function addAppender($logAppender): void
     {
         $this->appender = $logAppender;
     }
 
-    public function setLogLevel($LogLevel)
+    public function setLogLevel($LogLevel): void
     {
-        $this->logLevel = $LogLevel;
+        $this->logLevel = $LogLevel->value;
     }
 
-    public function getLogAppender()
+    public function getLogAppender(): LogAppenderInterface
     {
         return $this->appender;
     }
 
-    public function getLogLevel()
+    public function getLogLevel(): LogLevel
     {
         return $this->logLevel;
     }
