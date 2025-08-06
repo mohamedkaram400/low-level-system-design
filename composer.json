@@ -5,7 +5,8 @@
             "MohamedKaram\\ParkingLot\\": "DesigningParkingLotSystem/src/",
             "MohamedKaram\\StackOverFlow\\": "StackOverFlow/src/",
             "MohamedKaram\\VendingMachine\\": "VendingMachine/src/",
-            "MohamedKaram\\LoggingFramework\\": "LoggingFramework/src/"
+            "MohamedKaram\\LoggingFramework\\": "LoggingFramework/src/",
+            "MohamedKaram\\TrafficSignalControl\\": "TrafficSignalControl/src/"
         }
     },
     "authors": [
