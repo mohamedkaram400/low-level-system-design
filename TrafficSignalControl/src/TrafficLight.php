@@ -6,7 +6,7 @@ use MohamedKaram\TrafficSignalControl\Interfaces\SignelStateInterface;
 
 class TrafficLight
 {
-    protected ?Direction $direction = '';
+    protected ?Direction $direction = null;
     private ?SignelStateInterface $state = null;
 
     public function __construct(Direction $direction)
