@@ -3,10 +3,12 @@ namespace MohamedKaram\TrafficSignalControl\Main;
 
 use MohamedKaram\TrafficSignalControl\Road;
 
-
 class TrafficController
 {
     public static ?TrafficController $trafficController = null;
+
+    /** @var Road[] */
+    private array $roads = [];
 
     private function __construct()
     {
@@ -30,8 +32,18 @@ class TrafficController
         return self::$trafficController;
     }
 
-    public function addRoad($road)	
+    public function addRoad(Road $road): void 
     {
-        $roadData = new Road($road->id, $road->name);
+        $this->roads[] = $road;
+    }
+
+    public function start(): void 
+    {
+        while (true) {
+            foreach ($this->roads as $road) {
+                $state = $road->getTrafficLight()->getState();
+                $state->handle($road->getTrafficLight(), $road->getDirection());
+            }
+        }
     }
 }

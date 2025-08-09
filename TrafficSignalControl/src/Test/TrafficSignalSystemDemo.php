@@ -1,8 +1,10 @@
 <?php
 namespace MohamedKaram\TrafficSignalControl\Test;
 
+use MohamedKaram\TrafficSignalControl\Enums\Direction;
 use MohamedKaram\TrafficSignalControl\Main\TrafficController;
 use MohamedKaram\TrafficSignalControl\Road;
+use MohamedKaram\TrafficSignalControl\TrafficLight;
 
 class TrafficSignalSystemDemo
 {
@@ -11,10 +13,12 @@ class TrafficSignalSystemDemo
         $trafficController = TrafficController::getInstance();
 
         # Create roads
-        $road1 = new Road("R1", "Main Street");
-        $road2 = new Road("R2", "Broadway");
-        $road3 = new Road("R3", "Park Avenue");
-        $road4 = new Road("R4", "Elm Street");
+        $trafficController->addRoad(new Road("R1", "Main Street", Direction::EAST, new TrafficLight(Direction::EAST->value)));
+        $trafficController->addRoad(new Road("R2", "Broadway", Direction::WEAST, new TrafficLight(Direction::EAST->value)));
+        $trafficController->addRoad(new Road("R3", "Park Avenue", Direction::SOUTH, new TrafficLight(Direction::EAST->value)));
+        $trafficController->addRoad(new Road("R4", "Elm Street", Direction::NORTH,new TrafficLight(Direction::NORTH->value)));
+
+        $trafficController->start();
 
     }
 }

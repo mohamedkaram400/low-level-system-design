@@ -2,8 +2,7 @@
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use MohamedKaram\StackOverFlow\StackOverFlowDemo;
+use MohamedKaram\TrafficSignalControl\Test\TrafficSignalSystemDemo;
 
-
-$demo = new StackOverFlowDemo();
+$demo = new TrafficSignalSystemDemo();
 $demo->run();

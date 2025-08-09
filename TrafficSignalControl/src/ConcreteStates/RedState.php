@@ -4,17 +4,17 @@ namespace MohamedKaram\TrafficSignalControl\ConcreteStates;
 use MohamedKaram\TrafficSignalControl\Interfaces\SignalStateInterface;
 
 
-class GreenState implements SignalStateInterface
+class RedState implements SignalStateInterface
 {
     public function handle($trafficLight, $direction): void
     {
-        echo "Direction {$direction->value} is GREEN\n";
-        sleep($trafficLight->getDuration('green'));
-        $trafficLight->setState(new YellowState());
+        echo "Direction {$direction->value} is Red\n";
+        sleep($trafficLight->getDuration('red'));
+        $trafficLight->setState(new GreenState());
     }
 
     public function getName(): string
     {
-        return 'green state';
+        return 'read state';
     }
 }
