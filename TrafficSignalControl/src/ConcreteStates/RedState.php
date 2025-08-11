@@ -12,9 +12,4 @@ class RedState implements SignalStateInterface
         sleep($trafficLight->getDuration('red'));
         $trafficLight->setState(new GreenState());
     }
-
-    public function getName(): string
-    {
-        return 'read state';
-    }
 }

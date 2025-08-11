@@ -4,7 +4,7 @@ namespace MohamedKaram\TrafficSignalControl\Enums;
 enum Direction : string
 {
     case EAST = 'east';
-    case WEAST = 'west';
+    case WEST = 'west';
     case NORTH = 'north';
     case SOUTH = 'south';
 }

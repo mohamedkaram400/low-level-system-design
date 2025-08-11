@@ -1,7 +1,10 @@
 <?php
 namespace MohamedKaram\TrafficSignalControl\Main;
 
+use InvalidArgumentException;
 use MohamedKaram\TrafficSignalControl\Road;
+use MohamedKaram\TrafficSignalControl\TrafficLight;
+use MohamedKaram\TrafficSignalControl\Enums\Direction;
 
 class TrafficController
 {
@@ -12,6 +15,7 @@ class TrafficController
 
     private function __construct()
     {
+        // 
     }
 
     private function __clone(): void
@@ -32,12 +36,25 @@ class TrafficController
         return self::$trafficController;
     }
 
-    public function addRoad(Road $road): void 
+    public function addRoad($id, $name, $direction): void 
     {
-        $this->roads[] = $road;
+        $directionEnum = match($direction) {
+            'north' => Direction::NORTH,
+            'south' => Direction::SOUTH,
+            'east'  => Direction::EAST,
+            'west'  => Direction::WEST,
+            default => throw new InvalidArgumentException("Invalid direction: $direction"),
+        };
+        
+        $this->roads[] = new Road(
+            $id, 
+            $name, 
+            $directionEnum, 
+            new TrafficLight($directionEnum->value)
+        );
     }
 
-    public function start(): void 
+    public function start() 
     {
         while (true) {
             foreach ($this->roads as $road) {
