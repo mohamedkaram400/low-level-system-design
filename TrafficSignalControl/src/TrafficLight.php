@@ -21,16 +21,6 @@ class TrafficLight
         $this->state = new GreenState();
     }
 
-    public function getCurrentState(): SignalStateInterface
-    {
-        return $this->state;
-    }
-
-    public function getCurrentDirection(): Direction
-    {
-        return $this->direction;
-    }
-
     public function setState(SignalStateInterface $state): void
     {
         $this->state = $state;

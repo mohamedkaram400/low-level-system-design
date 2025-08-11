@@ -23,7 +23,7 @@ class Road
         return $this->trafficLight;
     }
 
-    public function getDirection()
+    public function getDirection(): Direction
     {
         return $this->direction;
     }
