@@ -3,19 +3,21 @@ namespace MohamedKaram\TrafficSignalControl\Main;
 
 use InvalidArgumentException;
 use MohamedKaram\TrafficSignalControl\Road;
-use MohamedKaram\TrafficSignalControl\TrafficLight;
 use MohamedKaram\TrafficSignalControl\Enums\Direction;
+use MohamedKaram\TrafficSignalControl\Factories\RoadFactory;
 
 class TrafficController
 {
-    public static ?TrafficController $trafficController = null;
+    private static ?TrafficController $trafficController = null;
+
+    private RoadFactory $roadFactory;
 
     /** @var Road[] */
     private array $roads = [];
 
-    private function __construct()
+    private function __construct(RoadFactory $roadFactory)
     {
-        // 
+        $this->roadFactory = $roadFactory;
     }
 
     private function __clone(): void
@@ -31,7 +33,7 @@ class TrafficController
     public static function getInstance(): TrafficController
     {
         if (self::$trafficController == null) {
-            self::$trafficController = new self();
+            self::$trafficController = new self(new RoadFactory());
         }
         return self::$trafficController;
     }
@@ -46,17 +48,12 @@ class TrafficController
             default => throw new InvalidArgumentException("Invalid direction: $direction"),
         };
         
-        $this->roads[] = new Road(
-            $id, 
-            $name, 
-            $directionEnum, 
-            new TrafficLight($directionEnum->value)
-        );
+        $this->roads[] = $this->roadFactory->createRoad($id, $name, $directionEnum);
     }
 
-    public function start() 
+    public function start($cycles) 
     {
-        while (true) {
+        for ($i = 0; $i < $cycles; $i++) {
             foreach ($this->roads as $road) {
                 $state = $road->getTrafficLight()->getState();
                 $state->handle($road->getTrafficLight(), $road->getDirection());

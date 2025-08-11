@@ -15,7 +15,7 @@ class TrafficSignalSystemDemo
         $trafficController->addRoad("R1", "Main Street", 'south');
         $trafficController->addRoad("R1", "Main Street", 'north');
 
-        $trafficController->start();
+        $trafficController->start(5);
 
     }
 }
